@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Branch extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+    public function workorders()
+    {
+        return $this->hasMany(Workorder::class);
+    }
 }

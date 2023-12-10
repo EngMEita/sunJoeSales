@@ -28,7 +28,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            'name' => $request->input('name'),
+        ];
+        $category = Category::create($data);
+        return redirect()->route('production.index')->withSucess('status', __('Done'));
     }
 
     /**

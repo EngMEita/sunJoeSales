@@ -2,20 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Production;
+use App\Models\Branch;
+use App\Models\Workorder;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\View\View;
 
-class ProductionController extends Controller
+class HomeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
-        return view("production.index", [
-            'productions' => Production::all(),
-            'categories' => Category::all(),
+        return view("home.index", [
+            'workorders' => Workorder::all(),
+            'branches' => Branch::all(),
         ]);
     }
 
@@ -38,7 +42,7 @@ class ProductionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Production $production)
+    public function show(string $id)
     {
         //
     }
@@ -46,7 +50,7 @@ class ProductionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Production $production)
+    public function edit(string $id)
     {
         //
     }
@@ -54,7 +58,7 @@ class ProductionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Production $production)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -62,7 +66,7 @@ class ProductionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Production $production)
+    public function destroy(string $id)
     {
         //
     }

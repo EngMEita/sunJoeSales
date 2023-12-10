@@ -28,7 +28,9 @@ class WorkorderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $workorder = Workorder::create($data);
+        return redirect()->route('home.index')->withSucess('status', __('Done'));
     }
 
     /**
@@ -52,7 +54,9 @@ class WorkorderController extends Controller
      */
     public function update(Request $request, Workorder $workorder)
     {
-        //
+        $data = ['delivery_date' => $request->input('delivery_date')];
+        $workorder->update($data);
+        return redirect()->route('branches.show', ['branch' => $workorder->branch])->withSucess('status', __('Done'));
     }
 
     /**
@@ -60,6 +64,7 @@ class WorkorderController extends Controller
      */
     public function destroy(Workorder $workorder)
     {
-        //
+        $workorder->delete();
+        return redirect()->route('home.index')->withSucess('status', __('Done'));
     }
 }

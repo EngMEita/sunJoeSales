@@ -28,7 +28,12 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            'name' => $request->input('name'),
+            'is_head' => $request->input('is_head', false)
+        ];
+        $branch = Branch::create($data);
+        return redirect()->route('home.index')->withSucess('status', __('Done'));
     }
 
     /**
@@ -36,7 +41,10 @@ class BranchController extends Controller
      */
     public function show(Branch $branch)
     {
-        //
+        return view("branch.index", [
+            'workorders' => $branch->workorders,
+            'branch' => $branch,
+        ]);
     }
 
     /**
@@ -60,6 +68,7 @@ class BranchController extends Controller
      */
     public function destroy(Branch $branch)
     {
-        //
+        $branch->delete();
+        return redirect()->route('home.index')->withSucess('status', __('Done'));
     }
 }

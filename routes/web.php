@@ -1,7 +1,12 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\BranchController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\WorkorderController;
+use App\Http\Controllers\ProductionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +31,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::resource('branches', BranchController::class);
+    Route::resource('workorders', WorkorderController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('production', ProductionController::class);
+
+    Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 });
 
 require __DIR__.'/auth.php';
