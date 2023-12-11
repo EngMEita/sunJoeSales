@@ -35,9 +35,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('branches', BranchController::class);
     Route::resource('workorders', WorkorderController::class);
     Route::resource('categories', CategoryController::class);
-    Route::resource('production', ProductionController::class);
+    Route::get('production', [ProductionController::class, 'index'])->name('production.index');
+    Route::put('production', [ProductionController::class,'update'])->name('production.update');
 
     Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

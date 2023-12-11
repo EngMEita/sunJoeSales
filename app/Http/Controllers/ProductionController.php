@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Workorder;
 use App\Models\Production;
 use Illuminate\Http\Request;
 
@@ -16,54 +17,25 @@ class ProductionController extends Controller
         return view("production.index", [
             'productions' => Production::all(),
             'categories' => Category::all(),
+            'workorders' => Workorder::all()
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Production $production)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Production $production)
-    {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Production $production)
+    public function update(Request $request)
     {
-        //
+        $ins = $request->in;
+        $outs = $request->out;
+        foreach($ins as $id => $in) {
+            $production = Production::findOrFail($id);
+            $production->update([
+                'in' => $in,
+                'out' => $outs[$id],
+            ]);
+        }
+        return redirect()->route('production.index')->withSucess('status', __('Done'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Production $production)
-    {
-        //
-    }
 }
